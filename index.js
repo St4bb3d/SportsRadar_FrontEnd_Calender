@@ -12,14 +12,25 @@ let date = new Date(),
 const months = ["January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"];
 
+//array of dates of events scheduled
+const events = [new Date(2024, 10, 7), new Date(2024, 10, 28), new Date(2024, 10, 10)];
+
+
+
 const renderCalendar = () =>
 {
             let firstDayofMonth = new Date(currYear, currMonth, 1).getDay();
-            firstDayofMonth = (firstDayofMonth === 0) ? 6 : firstDayofMonth - 1; // Adjust to make Sunday the start of the week
+                firstDayofMonth = (firstDayofMonth === 0) ? 6 : firstDayofMonth - 1; // Adjust to make Sunday the start of the week
+
             let lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
                 lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
                 lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+
             let liTag = "";
+
+
+
+
 
             //PREVIOUS MONTH LIST ITEMS - INACTIVE
             for (let i = firstDayofMonth; i > 0; i--)
@@ -27,22 +38,46 @@ const renderCalendar = () =>
                 liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
             }
 
-            //CURRENT MONTH LIST ITEMS - ACTIVE
-            for (let i = 1; i <= lastDateofMonth; i++)
-            { // creating li of all days of current month
-                // adding active class to li if the current day, month, and year matched
-                let isToday = i === date.getDate() && currMonth === new Date().getMonth()
-                && currYear === new Date().getFullYear() ? "active" : "";
+
+
+            // CURRENT MONTH LIST ITEMS - ACTIVE
+            for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
+                let isToday = ""; // Initialize as empty
+
+                // Check if the current iteration matches today's date
+                if (i === date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear()) {
+                    isToday = "active"; // Set to "active" by default for today's date
+                }
+
+                // Loop through events to check if the date matches an event
+                for (let j = 0; j < events.length; j++) {
+                    if (
+                        events[j].getDate() === i &&
+                        events[j].getMonth() === currMonth &&
+                        events[j].getFullYear() === currYear
+                    ) {
+                        isToday = "scheduled"; // Override to "scheduled" if there's a matching event
+                        break; // Exit the loop since we found a match
+                    }
+                }
+
+                // Add the list item with the appropriate class
                 liTag += `<li class="${isToday}">${i}</li>`;
             }
 
+
+
+
+
+
             //NEXT MONTH LIST ITEMS - INACTIVE
-            for (let i = lastDayofMonth; i < 7; i++)
-            {
-                liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
-            }
-            currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
-            daysTag.innerHTML = liTag;
+                    for (let i = lastDayofMonth; i < 7; i++)
+                    {
+                        liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
+                    }
+                    currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+                    daysTag.innerHTML = liTag;
+
 }
 //calling the function
 renderCalendar();

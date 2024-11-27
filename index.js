@@ -15,6 +15,19 @@ const months = ["January", "February", "March", "April", "May", "June", "July",
 //array of dates of events scheduled
 const events = [new Date(2024, 10, 7), new Date(2024, 10, 28), new Date(2024, 10, 10)];
 
+/*
+// Reference to the UL element
+const listContainer = document.getElementById('myList');
+
+// Generate list items and add them to the UL
+events.forEach(item => {
+    const li = document.createElement('li'); // Create a new <li> element
+    li.textContent = events; // Set the text content to the array value
+    listContainer.appendChild(li); // Append the <li> to the UL
+});
+
+*/
+
 
 
 const renderCalendar = () =>

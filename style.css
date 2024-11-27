@@ -11,6 +11,7 @@
     font-weight: bold;
     font-size: 3rem;
     color: #26413C;
+    margin: 20px;
 }
 .navbar{
     position: fixed;
@@ -36,13 +37,20 @@ body{
     padding: 0 10px;
     justify-content: center;
     min-height: 100vh;
-    background: #EBA6A9;
+    background: lightskyblue;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 .wrapper{
-    width: 450px;
+    width: 100%;
+    height: 100%;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    max-width: 1100px;
+    max-height: 800px;
+    margin: 0 auto;
 }
 .wrapper header{
     display: flex;
@@ -77,6 +85,9 @@ header .current-date{
 }
 .calendar{
     padding: 20px;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 .calendar ul{
     display: flex;
@@ -120,11 +131,87 @@ header .current-date{
     transform: translate(-50%, -50%);
 }
 .days li.active::before{
-    background: #EBA6A9;
+    background: lightskyblue;
 }
-.days li:not(.active):hover::before{
-    background: #f2f2f2;
+.days li:hover::before{
+    background: grey;
 }
 .days li.scheduled::before{
     background: #456990;
+}
+.days li.scheduled:hover::before{
+    background: grey;
+}
+.title h1{
+    font-size: 3rem;
+    position: fixed;
+}
+/* General form styles */
+#eventForm {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Style the form inputs */
+#eventForm input[type="text"],
+#eventForm input[type="email"],
+#eventForm input[type="date"],
+#eventForm select,
+#eventForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #fff;
+}
+
+/* Focus effect on inputs */
+#eventForm input:focus,
+#eventForm select:focus,
+#eventForm textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Label styling */
+#eventForm label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+/* Button styling */
+#eventForm button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#eventForm button:hover {
+    background-color: #0056b3;
+}
+
+/* Additional responsive styles */
+@media (max-width: 768px) {
+    #eventForm {
+        padding: 15px;
+    }
 }

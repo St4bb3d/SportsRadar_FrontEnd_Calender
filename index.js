@@ -1,98 +1,102 @@
-//const variables
+// Select DOM elements
 const daysTag = document.querySelector(".days"),
-    currentDate = document.querySelector(".current-date"),
-    prevNextIcon = document.querySelectorAll(".icons span");
+    currentDate = document.querySelector(".current-date");
 
-// getting new date, current year and month
+// Get current date, year, and month
 let date = new Date(),
     currYear = date.getFullYear(),
     currMonth = date.getMonth();
 
-// storing full name of all months in array
+// Full month names array
 const months = ["January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"];
 
-//array of dates of events scheduled
-const events = [new Date(2024, 10, 7), new Date(2024, 10, 28), new Date(2024, 10, 10)];
+//  events array
+let events = [
+];
 
-
-const renderCalendar = () =>
-{
-            let firstDayofMonth = new Date(currYear, currMonth, 1).getDay();
-                firstDayofMonth = (firstDayofMonth === 0) ? 6 : firstDayofMonth - 1; // Adjust to make Sunday the start of the week
-
-            let lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
-                lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
-                lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
-
-            let liTag = "";
-
-
-
-
-
-            //PREVIOUS MONTH LIST ITEMS - INACTIVE
-    for (let i = firstDayofMonth; i > 0; i--)
-            { // creating li of previous month last days
-                liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
-            }
-
-
-
-            // CURRENT MONTH LIST ITEMS - ACTIVE
-            for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
-                let isToday = ""; // Initialize as empty
-
-                // Check if the current iteration matches today's date
-                if (i === date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear()) {
-                    isToday = "active"; // Set to "active" by default for today's date
-                }
-
-                // Loop through events to check if the date matches an event
-                for (let j = 0; j < events.length; j++) {
-                    if (
-                        events[j].getDate() === i &&
-                        events[j].getMonth() === currMonth &&
-                        events[j].getFullYear() === currYear
-                    ) {
-                        isToday = "scheduled"; // Override to "scheduled" if there's a matching event
-                        break; // Exit the loop since we found a match
-                    }
-                }
-
-                // Add the list item with the appropriate class
-                liTag += `<li class="${isToday}">${i}</li>`;
-            }
-
-
-
-
-
-
-            //NEXT MONTH LIST ITEMS - INACTIVE
-                    for (let i = lastDayofMonth; i < 7; i++)
-                    {
-                        liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
-                    }
-                    currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
-                    daysTag.innerHTML = liTag;
-
-            // Add click event listener to list items in .days
-            //if scheduled user is taken to events page, if not they are taken to addevents page
-            document.querySelectorAll('.days li').forEach(day => {
-                day.addEventListener('click', () => {
-                    if (!day.classList.contains('scheduled')) {
-                        window.location.href = 'addevent.html';
-                    }
-                    if (day.classList.contains('scheduled')) {
-                        window.location.href = 'events.html';
-                    }
-                });
+// Load events from session storage and merge with static events
+const loadStoredEvents = () => {
+    const storedEvents = JSON.parse(window.sessionStorage.getItem('events')) || [];
+    // Only add unique events to avoid duplication
+    storedEvents.forEach(event => {
+        const eventDate = new Date(event.date);
+        if (!events.some(e => e.date.getTime() === eventDate.getTime() && e.title === event.title)) {
+            events.push({
+                date: eventDate,
+                title: event.title,
+                sport: event.sport
             });
+        }
+    });
+};
 
-}
-//calling the function
+// Render the calendar
+const renderCalendar = () => {
+    // Load stored events
+    loadStoredEvents();
+
+    let firstDayOfMonth = new Date(currYear, currMonth, 1).getDay() || 7; // Adjust for Sunday start
+    let lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate();
+    let lastDayOfMonth = new Date(currYear, currMonth, lastDateOfMonth).getDay() || 7;
+    let lastDateOfLastMonth = new Date(currYear, currMonth, 0).getDate();
+
+    let liTag = "";
+
+    // Previous month's inactive days
+    for (let i = firstDayOfMonth - 1; i > 0; i--) {
+        liTag += `<li class="inactive">${lastDateOfLastMonth - i + 1}</li>`;
+    }
+
+    // Current month's active days
+    for (let i = 1; i <= lastDateOfMonth; i++) {
+        let isToday = i === date.getDate() && currMonth === date.getMonth() && currYear === date.getFullYear() ? "active" : "";
+        let isScheduled = "";
+        let eventDetails = "";
+
+        // Check if the day has a scheduled event
+        const event = events.find(
+            event =>
+                event.date.getUTCDate() === i &&
+                event.date.getUTCMonth() === currMonth &&
+                event.date.getUTCFullYear() === currYear
+        );
+
+        if (event) {
+            isScheduled = "scheduled";
+            eventDetails = event.title;
+        }
+
+        liTag += `<li class="${isToday} ${isScheduled}" title="${eventDetails}">${i}</li>`;
+    }
+
+    // Next month's inactive days
+    for (let i = 1; i <= 7 - lastDayOfMonth; i++) {
+        liTag += `<li class="inactive">${i}</li>`;
+    }
+
+    // Update the DOM
+    currentDate.innerText = `${months[currMonth]} ${currYear}`;
+    daysTag.innerHTML = liTag;
+
+    // Add click event listeners
+    document.querySelectorAll('.days li').forEach(day => {
+        day.addEventListener('click', () => {
+            if (day.classList.contains('scheduled')) {
+                const event = events.find(
+                    e => e.date.getUTCDate() === parseInt(day.innerText) &&
+                        e.date.getUTCMonth() === currMonth &&
+                        e.date.getUTCFullYear() === currYear
+                );
+                if (event) {
+                    window.location.href = `events.html?date=${event.date.toISOString()}&title=${encodeURIComponent(event.title)}&sport=${event.sport}`;
+                }
+            } else if (!day.classList.contains('inactive')) {
+                window.location.href = 'addevent.html';
+            }
+        });
+    });
+};
+
+// Call renderCalendar on load
 renderCalendar();
-
-
-//FORMS

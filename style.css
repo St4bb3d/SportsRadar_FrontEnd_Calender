@@ -1,174 +1,141 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-.navbar{
-    position: fixed;
-    top: 0;
-}
-.title{
-    text-align: left;
-    font-weight: bold;
-    min-font-size: 2rem;
-    color: #26413C;
-    margin: 20px;
-    text-decoration: none;
-}
-.navbar ul {
+
+body {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-.navbar ul li{
-    text-decoration: none;
-    max-height: 4rem;
-    padding: 0 15px;
-    font-size: 1.75rem;
-    cursor: pointer;
-    color: #CE2D4F;
-}
-.navbar ul li a:hover{
-    color: #B1740F;
-}
-
-
-body{
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
     justify-content: center;
+    padding: 20px;
     min-height: 100vh;
     background: lightskyblue;
-    margin: 0 auto;
-}
-.wrapper{
-    width: 90%;
-    max-height: 90%;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-    max-width: 1100px;
-    margin: 0 auto;
-}
-.wrapper header{
-    display: flex;
-    align-items: center;
-    padding: 25px 30px 10px;
-    justify-content: space-between;
-    background-color: #AF3E4D;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-.events {
-    text-align: center; /* Centers the text inside the container */
-    background-color: #f9f9f9; /* Light background for visibility */
-    padding: 20px; /* Adds space inside the container */
-    border-radius: 8px; /* Smooth corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    min-width: 80vw;
-    min-height: 80vh;
-    margin-top: 100px;
-}
-.event-list ul {
-    list-style: none; /* Removes bullets */
-    padding: 0;
-    margin: 0 auto; /* Center the list within the container */
-}
-.event-list ul li{
-    margin: 10px 0; /* Adds space between each list item */
-    padding: 10px; /* Adds inner spacing for each item */
-    background-color: #e0e0e0; /* Light gray background for list items */
-    border-radius: 4px; /* Smooth corners for items */
-    font-size: 50px; /* Adjusts font size */
-    font-weight: bold; /* Makes text bold */
-    cursor: pointer; /* Changes cursor to pointer */
-    transition: background-color 0.3s ease; /* Adds a hover effect */
-}
-.event-list li:hover {
-    background-color: #c5c5c5; /* Slightly darker background on hover */
 }
 
-
-
-header .current-date{
-    font-size: 1.75rem;
-    font-weight: 500;
-}
-.calendar{
-    padding: 10px;
+/* Navbar styles */
+.navbar {
+    position: fixed;
+    top: 0;
     width: 100%;
-    height: 100%;
-    max-width: 1100px;
-    max-height: 1100px;
-    margin: 0 auto;
+    background-color: #26413C;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
 }
-.calendar ul{
-    display: flex;
-    flex-wrap: wrap;
+
+.navbar .title {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar ul {
     list-style: none;
-    text-align: center;
+    display: flex;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
 }
-.calendar .days{
-    margin-bottom: 10px;
+
+.navbar ul li {
+    display: inline-block;
 }
-.calendar li{
-    color: #333;
-    width: calc(100% / 7);
-    height: calc(100% / 7);
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #CE2D4F;
     font-size: 1.5rem;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
-.calendar .weeks li{ /*Mon, Tue, ..., Sun*/
-    font-weight: 500;
-    cursor: default;
-}
-.calendar .days li{
-    z-index: 1;
-    cursor: pointer;
-    position: relative;
-    margin-top: 30px;
-}
-.days li.inactive{
-    color: #aaa;
-}
-.days li.active{
+
+.navbar ul li a:hover {
+    background-color: #B1740F;
     color: #fff;
 }
-.days li::before{
-    position: absolute;
-    content: "";
-    left: 50%;
-    top: 50%;
-    height: 40px;
-    width: 40px;
-    z-index: -1;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-}
-.days li.active::before{
-    background: lightskyblue;
-}
-.days li:hover::before{
-    background: grey;
-}
-.days li.scheduled::before{
-    background: #456990;
-}
-.days li.scheduled:hover::before{
-    background: grey;
+
+/* Wrapper and Calendar styles */
+.wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 100px; /* To account for fixed navbar */
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
 }
 
+.wrapper header {
+    background-color: #AF3E4D;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    font-size: 1.75rem;
+    font-weight: 600;
+}
 
+.calendar {
+    padding: 20px;
+}
 
+.calendar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
 
+.calendar .weeks li {
+    font-weight: 600;
+    width: calc(100% / 7);
+    margin-bottom: 10px;
+}
 
-/* General form styles */
+.calendar .days li {
+    width: calc(100% / 7);
+    margin: 5px 0;
+    font-size: 1.25rem;
+    padding: 10px;
+    border-radius: 5%;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+.days li.inactive {
+    color: #aaa;
+    cursor: default;
+}
+
+.days li.active {
+    background-color: lightgrey;
+    color: #fff;
+    font-weight: bold;
+    border: 3px solid #AF3E4D;
+}
+
+.days li.scheduled {
+    background-color: #26413C;
+    color: #fff;
+    font-weight: bold;
+}
+
+.days li:hover:not(.inactive) {
+    background-color: lightslategrey;
+    color: #fff;
+}
+
+/* Form styles */
 #eventForm {
+    width: 100%;
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
@@ -176,35 +143,8 @@ header .current-date{
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
 }
 
-/* Style the form inputs */
-#eventForm input[type="text"],
-#eventForm input[type="email"],
-#eventForm input[type="date"],
-#eventForm select,
-#eventForm textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-    background-color: #fff;
-}
-
-/* Focus effect on inputs */
-#eventForm input:focus,
-#eventForm select:focus,
-#eventForm textarea:focus {
-    border-color: #007BFF;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-}
-
-/* Label styling */
 #eventForm label {
     font-weight: bold;
     margin-bottom: 5px;
@@ -212,7 +152,17 @@ header .current-date{
     color: #333;
 }
 
-/* Button styling */
+#eventForm input[type="text"],
+#eventForm input[type="date"],
+#eventForm input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
 #eventForm button {
     width: 100%;
     padding: 12px;
@@ -230,16 +180,21 @@ header .current-date{
     background-color: #0056b3;
 }
 
-/* Additional responsive styles */
-@media (max-width: 768px) {
-    #eventForm {
-        padding: 15px;
-    }
+/* Event details page styles */
+.events {
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
 }
 
-/*ADDED EVENTS*/
-#events {
-    margin-top: 20px;
+.event-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    font-size: 1.25rem;
 }
 
 .event-card {
@@ -261,3 +216,23 @@ header .current-date{
     color: #555;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar .title {
+        font-size: 1.5rem;
+    }
+
+    .navbar ul li a {
+        font-size: 1.2rem;
+    }
+
+    .calendar .weeks li,
+    .calendar .days li {
+        font-size: 1rem;
+    }
+
+    #eventForm input,
+    #eventForm button {
+        font-size: 14px;
+    }
+}

@@ -15,20 +15,6 @@ const months = ["January", "February", "March", "April", "May", "June", "July",
 //array of dates of events scheduled
 const events = [new Date(2024, 10, 7), new Date(2024, 10, 28), new Date(2024, 10, 10)];
 
-/*
-// Reference to the UL element
-const listContainer = document.getElementById('myList');
-
-// Generate list items and add them to the UL
-events.forEach(item => {
-    const li = document.createElement('li'); // Create a new <li> element
-    li.textContent = events; // Set the text content to the array value
-    listContainer.appendChild(li); // Append the <li> to the UL
-});
-
-*/
-
-
 
 const renderCalendar = () =>
 {
@@ -46,7 +32,7 @@ const renderCalendar = () =>
 
 
             //PREVIOUS MONTH LIST ITEMS - INACTIVE
-            for (let i = firstDayofMonth; i > 0; i--)
+    for (let i = firstDayofMonth; i > 0; i--)
             { // creating li of previous month last days
                 liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
             }
@@ -91,6 +77,22 @@ const renderCalendar = () =>
                     currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
                     daysTag.innerHTML = liTag;
 
+            // Add click event listener to list items in .days
+            //if scheduled user is taken to events page, if not they are taken to addevents page
+            document.querySelectorAll('.days li').forEach(day => {
+                day.addEventListener('click', () => {
+                    if (!day.classList.contains('scheduled')) {
+                        window.location.href = 'addevent.html';
+                    }
+                    if (day.classList.contains('scheduled')) {
+                        window.location.href = 'events.html';
+                    }
+                });
+            });
+
 }
 //calling the function
 renderCalendar();
+
+
+//FORMS

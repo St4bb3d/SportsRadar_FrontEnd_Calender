@@ -5,13 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Event</title>
     <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
 </head>
 <body>
+<div class="navbar">
+    <header>
+        <h1 class="title">Add an Event</h1>
+        <nav>
+            <ul class="nav-bar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">List of Events</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
 
-<h1 class="title">Add an Event</h1>
-<ul>
-<li><a href="events.html">BACK</a></li>
-</ul>
 
 <form id="eventForm">
     <label for="title">Title</label>
@@ -27,14 +35,7 @@
     <input type="text" id="location" placeholder="Event Location" required>
 
     <label for="sportType">Type of Sport</label>
-    <select id="sportType" required>
-        <option value="" disabled selected>Select a sport</option>
-        <option value="Soccer">Soccer</option>
-        <option value="Basketball">Basketball</option>
-        <option value="Tennis">Tennis</option>
-        <option value="Cricket">Cricket</option>
-        <option value="Baseball">Baseball</option>
-    </select>
+    <input type="text" id="sportType" placeholder="Type of Sport" required>
 
     <button type="submit">Add Event</button>
 </form>
@@ -42,7 +43,5 @@
 
 <div id="events"></div>
 
-<script src="index.js"></script>
 
-</body>
-</html>
+

@@ -43,14 +43,13 @@ const formatDate = (dateString) => {
 // Display the details of a specific event if the query parameters are available
 const displaySpecificEvent = () => {
     if (dateParam && titleParam && sportParam) {
-        const eventDetails = `
+        eventList.innerHTML = `
             <div class="event-card">
                 <h3>${titleParam}</h3>
                 <p><strong>Date:</strong> ${formatDate(dateParam)}</p>
                 <p><strong>Sport:</strong> ${sportParam}</p>
             </div>
         `;
-        eventList.innerHTML = eventDetails;
 
         // Add a back button for better navigation
         const backButton = document.createElement('button');

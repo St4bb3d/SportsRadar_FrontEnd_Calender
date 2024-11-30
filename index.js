@@ -242,6 +242,28 @@ const loadStoredEvents = () => {
     });
 };
 
+//change month
+// Function to go to the previous month
+const goToPreviousMonth = () => {
+    currMonth--;
+    if (currMonth < 0) {
+        currMonth = 11; // December
+        currYear--; // Move to the previous year
+    }
+    renderCalendar();
+};
+
+// Function to go to the next month
+const goToNextMonth = () => {
+    currMonth++;
+    if (currMonth > 11) {
+        currMonth = 0; // January
+        currYear++; // Move to the next year
+    }
+    renderCalendar();
+};
+
+
 // Render the calendar
 const renderCalendar = () => {
     // Load events from sessionStorage and merge with json events
@@ -308,6 +330,11 @@ const renderCalendar = () => {
         });
     });
 };
+
+// Add event listeners for navigation buttons
+document.getElementById("prevMonth").addEventListener("click", goToPreviousMonth);
+document.getElementById("nextMonth").addEventListener("click", goToNextMonth);
+
 
 // Call renderCalendar on load
 renderCalendar();
